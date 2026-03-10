@@ -20,10 +20,10 @@ export default function LegalCard({ doc, showSave = true }) {
   const [saved, setSaved] = useState(false);
   const [saving, setSaving] = useState(false);
   const colorClass = SOURCE_COLORS[doc.source] || SOURCE_COLORS.default;
-  const supabase = createClient();
 
   const handleSave = async () => {
     setSaving(true);
+    const supabase = createClient();
     const { data: { user } } = await supabase.auth.getUser();
     if (!user) {
       window.location.href = '/login';

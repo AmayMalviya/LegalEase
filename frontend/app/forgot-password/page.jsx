@@ -1,204 +1,69 @@
-'use client'
+'use client';
+export const dynamic = 'force-dynamic';
 
-import { useState } from 'react'
-import { motion } from 'framer-motion'
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { GavelIcon, ArrowRightIcon, LockIcon } from "lucide-react"
-import Link from "next/link"
-import { useRouter } from 'next/navigation'
+import { useState } from 'react';
+import Link from 'next/link';
+import { motion } from 'framer-motion';
+import { Scale, Mail, AlertCircle, CheckCircle } from 'lucide-react';
+import { createClient } from '@/lib/supabase/client';
 
-const ForgotPassword = () => {
-  const router = useRouter()
-  const [email, setEmail] = useState('')
-  const [token, setToken] = useState('')
-  const [newPassword, setNewPassword] = useState('')
-  const [step, setStep] = useState('request') // 'request' or 'reset'
-  const [error, setError] = useState('')
-  const [success, setSuccess] = useState('')
+export default function ForgotPasswordPage() {
+  const [email, setEmail] = useState('');
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState('');
+  const [sent, setSent] = useState(false);
 
-  const handleRequestReset = async (e) => {
-    e.preventDefault()
-    setError('')
-    setSuccess('')
-
-    try {
-      const response = await fetch('/api/auth/forgot-password', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email }),
-      })
-
-      const data = await response.json()
-
-      if (response.ok) {
-        setSuccess('Password reset email sent. Please check your inbox.')
-        setStep('reset')
-      } else {
-        setError(data.error || 'An error occurred')
-      }
-    } catch (error) {
-      setError('An unexpected error occurred')
-    }
-  }
-
-  const handleResetPassword = async (e) => {
-    e.preventDefault()
-    setError('')
-    setSuccess('')
-
-    try {
-      const response = await fetch('/api/auth/reset-password', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ token, newPassword }),
-      })
-
-      const data = await response.json()
-
-      if (response.ok) {
-        setSuccess('Password reset successful')
-        setTimeout(() => router.push('/login'), 2000)
-      } else {
-        setError(data.error || 'An error occurred')
-      }
-    } catch (error) {
-      setError('An unexpected error occurred')
-    }
-  }
+  const handleReset = async (e) => {
+    e.preventDefault();
+    setError('');
+    setLoading(true);
+    const supabase = createClient();
+    const { error } = await supabase.auth.resetPasswordForEmail(email, {
+      redirectTo: `${window.location.origin}/auth/callback?next=/reset-password`,
+    });
+    if (error) { setError(error.message); } else { setSent(true); }
+    setLoading(false);
+  };
 
   return (
-    <div className="min-h-screen w-full bg-gradient-to-br from-purple-100 to-blue-100 flex flex-col">
-      <header className="w-full px-4 lg:px-6 h-16 flex items-center justify-between backdrop-blur-sm bg-white/30 sticky top-0 z-50">
-        <Link className="flex items-center justify-center" href="/">
-          <GavelIcon className="h-6 w-6 mr-2 text-purple-600" />
-          <span className="font-bold text-xl bg-clip-text text-transparent bg-gradient-to-r from-purple-600 to-blue-600">Legalease</span>
-        </Link>
-        <nav className="flex gap-4 sm:gap-6 items-center">
-          <Link className="text-sm font-medium hover:text-purple-600 transition-colors" href="/">
-            Home
-          </Link>
-          <Link className="text-sm font-medium hover:text-purple-600 transition-colors" href="/login">
-            Login
-          </Link>
-        </nav>
-      </header>
-      <main className="flex-grow flex items-center justify-center p-4">
-        <div className="w-full max-w-4xl flex flex-col md:flex-row items-center gap-8">
-          <motion.div
-            initial={{ opacity: 0, x: -20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.5 }}
-            className="w-full md:w-1/2 text-gray-800">
-            <h1 className="text-4xl font-bold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-purple-600 to-blue-600">
-              Forgot Your Password?
-            </h1>
-            <h2 className="text-2xl mb-4 text-gray-700">No worries, we've got you covered</h2>
-            <p className="mb-6 text-gray-600">
-              {step === 'request'
-                ? "Enter your email address and we'll send you instructions to reset your password."
-                : "Enter the token from your email and your new password to complete the reset process."}
-            </p>
-            <Button className="bg-gradient-to-r from-purple-600 to-blue-600 text-white hover:from-purple-700 hover:to-blue-700 transition-all duration-300">
-              Learn More About Account Security
-              <ArrowRightIcon className="ml-2 h-4 w-4" />
-            </Button>
-          </motion.div>
-          <motion.div
-            initial={{ opacity: 0, x: 20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.5, delay: 0.2 }}
-            className="w-full md:w-1/2">
-            <Card className="w-full bg-white/80 backdrop-blur-sm shadow-xl">
-              <CardHeader>
-                <CardTitle className="text-2xl font-bold text-gray-800 flex items-center">
-                  <LockIcon className="mr-2 h-6 w-6 text-purple-600" />
-                  Reset Your Password
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                {step === 'request' ? (
-                  <form onSubmit={handleRequestReset} className="space-y-4">
-                    <div className="space-y-2">
-                      <label htmlFor="email" className="text-sm font-medium text-gray-700">
-                        Email Address
-                      </label>
-                      <Input
-                        id="email"
-                        type="email"
-                        placeholder="you@example.com"
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
-                        className="bg-white/50 border-gray-300 focus:border-purple-500 focus:ring-purple-500"
-                        required
-                      />
-                    </div>
-                    <Button
-                      type="submit"
-                      className="w-full bg-gradient-to-r from-purple-600 to-blue-600 text-white hover:from-purple-700 hover:to-blue-700 transition-all duration-300">
-                      Send Reset Instructions
-                      <ArrowRightIcon className="ml-2 h-4 w-4" />
-                    </Button>
-                  </form>
-                ) : (
-                  <form onSubmit={handleResetPassword} className="space-y-4">
-                    <div className="space-y-2">
-                      <label htmlFor="token" className="text-sm font-medium text-gray-700">
-                        Reset Token
-                      </label>
-                      <Input
-                        id="token"
-                        type="text"
-                        placeholder="Enter token from email"
-                        value={token}
-                        onChange={(e) => setToken(e.target.value)}
-                        className="bg-white/50 border-gray-300 focus:border-purple-500 focus:ring-purple-500"
-                        required
-                      />
-                    </div>
-                    <div className="space-y-2">
-                      <label htmlFor="new-password" className="text-sm font-medium text-gray-700">
-                        New Password
-                      </label>
-                      <Input
-                        id="new-password"
-                        type="password"
-                        placeholder="••••••••"
-                        value={newPassword}
-                        onChange={(e) => setNewPassword(e.target.value)}
-                        className="bg-white/50 border-gray-300 focus:border-purple-500 focus:ring-purple-500"
-                        required
-                      />
-                    </div>
-                    <Button
-                      type="submit"
-                      className="w-full bg-gradient-to-r from-purple-600 to-blue-600 text-white hover:from-purple-700 hover:to-blue-700 transition-all duration-300">
-                      Reset Password
-                      <ArrowRightIcon className="ml-2 h-4 w-4" />
-                    </Button>
-                  </form>
-                )}
-                {error && <p className="mt-4 text-red-500 text-sm">{error}</p>}
-                {success && <p className="mt-4 text-green-500 text-sm">{success}</p>}
-              </CardContent>
-            </Card>
-          </motion.div>
+    <div className="min-h-screen flex items-center justify-center px-4 relative">
+      <div className="orb w-[400px] h-[400px] bg-amber-500/6 top-[-100px] left-[-100px]" />
+      <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="w-full max-w-md">
+        <div className="text-center mb-8">
+          <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-amber-400 to-orange-500 flex items-center justify-center mx-auto mb-4 shadow-2xl shadow-amber-500/30">
+            <Scale className="w-7 h-7 text-white" />
+          </div>
+          <h1 className="text-2xl font-bold text-white">Reset your password</h1>
+          <p className="text-gray-500 text-sm mt-1">We&apos;ll send you a reset link</p>
         </div>
-      </main>
-      <footer className="w-full flex flex-col gap-2 sm:flex-row py-6 shrink-0 items-center px-4 md:px-6 border-t bg-white/50 backdrop-blur-sm">
-        <p className="text-xs text-gray-600">© 2023 Legalease. All rights reserved.</p>
-        <nav className="sm:ml-auto flex gap-4 sm:gap-6">
-          <Link className="text-xs hover:text-purple-600 transition-colors" href="#">
-            Terms of Service
-          </Link>
-          <Link className="text-xs hover:text-purple-600 transition-colors" href="#">
-            Privacy Policy
-          </Link>
-        </nav>
-      </footer>
+        {sent ? (
+          <div className="bg-white/5 border border-white/10 rounded-3xl p-8 text-center">
+            <CheckCircle className="w-10 h-10 text-green-400 mx-auto mb-3" />
+            <h2 className="text-white font-semibold mb-2">Check your inbox</h2>
+            <p className="text-gray-500 text-sm">A reset link was sent to <strong className="text-white">{email}</strong>.</p>
+            <Link href="/login" className="mt-4 inline-block text-sm text-amber-400 hover:text-amber-300">Back to Sign In</Link>
+          </div>
+        ) : (
+          <div className="bg-white/5 border border-white/10 rounded-3xl p-8">
+            <form onSubmit={handleReset} className="space-y-4">
+              <div>
+                <label className="text-xs font-medium text-gray-400 mb-1.5 block">Email address</label>
+                <div className="relative">
+                  <Mail className="w-4 h-4 absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-600" />
+                  <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="you@example.com" required className="w-full pl-10 pr-4 py-3 bg-white/5 border border-white/10 rounded-xl text-sm text-white placeholder-gray-700 outline-none focus:border-amber-500/40 transition-colors" />
+                </div>
+              </div>
+              {error && <div className="flex items-center gap-2 px-3 py-2.5 rounded-xl bg-red-500/10 border border-red-500/20 text-red-400 text-xs"><AlertCircle className="w-3.5 h-3.5 flex-shrink-0" />{error}</div>}
+              <button type="submit" disabled={loading} className="w-full py-3 rounded-xl font-semibold text-sm bg-gradient-to-r from-amber-500 to-orange-500 text-white hover:scale-[1.02] disabled:opacity-60 transition-all">
+                {loading ? 'Sending...' : 'Send Reset Link'}
+              </button>
+            </form>
+            <p className="text-center text-sm text-gray-600 mt-5">
+              Remember it? <Link href="/login" className="text-amber-400 font-medium hover:text-amber-300">Sign in</Link>
+            </p>
+          </div>
+        )}
+      </motion.div>
     </div>
-  )
+  );
 }
-
-export default ForgotPassword;

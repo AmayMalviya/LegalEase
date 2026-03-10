@@ -4,6 +4,8 @@
   "private": true,
   "scripts": {
     "seed": "ts-node --compiler-options {\"module\":\"CommonJS\"} prisma/seed.js",
+    "ingest": "node scripts/ingest-laws.js",
+    "embed": "node scripts/generate-embeddings.js",
     "dev": "next dev",
     "build": "next build",
     "start": "next start"
