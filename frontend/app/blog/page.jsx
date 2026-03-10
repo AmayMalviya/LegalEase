@@ -42,7 +42,7 @@ const POSTS = [
     excerpt: 'The Hindu Succession Act, 2005 amendment gave women equal inheritance rights. Learn how this affects property disputes, coparcenary rights, and joint family property.',
     category: 'Property Law',
     readTime: '5 min',
-    gradient: 'from-amber-500 to-yellow-500',
+    gradient: 'from-indigo-500 to-sky-500',
   },
   {
     slug: 'traffic-violations-mva',
@@ -61,7 +61,7 @@ export default function BlogPage() {
         <div className="max-w-6xl mx-auto px-4 sm:px-6 py-12">
           <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}>
             <div className="flex items-center gap-3 mb-3">
-              <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-amber-500 to-orange-500 flex items-center justify-center">
+              <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-indigo-500 to-sky-500 flex items-center justify-center">
                 <BookOpen className="w-5 h-5 text-white" />
               </div>
               <h1 className="text-3xl font-bold text-white">Legal Blog</h1>
@@ -97,7 +97,7 @@ export default function BlogPage() {
                   <p className="text-gray-500 text-sm leading-relaxed mb-5 line-clamp-3">{post.excerpt}</p>
                   <Link
                     href={`/ask?q=${encodeURIComponent(post.title)}`}
-                    className="inline-flex items-center gap-1.5 text-sm font-medium text-amber-400 hover:gap-2.5 transition-all group-hover:text-amber-300"
+                    className="inline-flex items-center gap-1.5 text-sm font-medium text-indigo-300 hover:gap-2.5 transition-all group-hover:text-indigo-200"
                   >
                     Ask AI about this <ArrowRight className="w-3.5 h-3.5" />
                   </Link>

@@ -49,7 +49,7 @@ export default function SignupPage() {
           <p className="text-gray-500 text-sm">
             We sent a confirmation link to <strong className="text-white">{email}</strong>.
             Click it to activate your account, then{' '}
-            <Link href="/login" className="text-amber-400 hover:text-amber-300">sign in</Link>.
+            <Link href="/login" className="text-indigo-300 hover:text-indigo-200">sign in</Link>.
           </p>
         </motion.div>
       </div>
@@ -62,7 +62,7 @@ export default function SignupPage() {
 
       <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="w-full max-w-md">
         <div className="text-center mb-8">
-          <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-amber-400 to-orange-500 flex items-center justify-center mx-auto mb-4 shadow-2xl shadow-amber-500/30">
+          <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-indigo-500 to-sky-500 flex items-center justify-center mx-auto mb-4 shadow-2xl shadow-indigo-500/30">
             <Scale className="w-7 h-7 text-white" />
           </div>
           <h1 className="text-2xl font-bold text-white">Create your account</h1>
@@ -81,7 +81,7 @@ export default function SignupPage() {
                   onChange={(e) => setName(e.target.value)}
                   placeholder="Your name"
                   required
-                  className="w-full pl-10 pr-4 py-3 bg-white/5 border border-white/10 rounded-xl text-sm text-white placeholder-gray-700 outline-none focus:border-amber-500/40 transition-colors"
+                  className="w-full pl-10 pr-4 py-3 bg-white/5 border border-white/10 rounded-xl text-sm text-white placeholder-gray-700 outline-none focus:border-indigo-500/40 transition-colors"
                 />
               </div>
             </div>
@@ -96,7 +96,7 @@ export default function SignupPage() {
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder="you@example.com"
                   required
-                  className="w-full pl-10 pr-4 py-3 bg-white/5 border border-white/10 rounded-xl text-sm text-white placeholder-gray-700 outline-none focus:border-amber-500/40 transition-colors"
+                  className="w-full pl-10 pr-4 py-3 bg-white/5 border border-white/10 rounded-xl text-sm text-white placeholder-gray-700 outline-none focus:border-indigo-500/40 transition-colors"
                 />
               </div>
             </div>
@@ -111,7 +111,7 @@ export default function SignupPage() {
                   onChange={(e) => setPassword(e.target.value)}
                   placeholder="Min. 6 characters"
                   required
-                  className="w-full pl-10 pr-10 py-3 bg-white/5 border border-white/10 rounded-xl text-sm text-white placeholder-gray-700 outline-none focus:border-amber-500/40 transition-colors"
+                  className="w-full pl-10 pr-10 py-3 bg-white/5 border border-white/10 rounded-xl text-sm text-white placeholder-gray-700 outline-none focus:border-indigo-500/40 transition-colors"
                 />
                 <button
                   type="button"
@@ -132,7 +132,7 @@ export default function SignupPage() {
             <button
               type="submit"
               disabled={loading}
-              className="w-full py-3 rounded-xl font-semibold text-sm bg-gradient-to-r from-amber-500 to-orange-500 text-white hover:scale-[1.02] disabled:opacity-60 disabled:scale-100 transition-all shadow-lg shadow-amber-500/20"
+              className="w-full py-3 rounded-xl font-semibold text-sm bg-gradient-to-r from-indigo-500 to-sky-500 text-white hover:scale-[1.02] disabled:opacity-60 disabled:scale-100 transition-all shadow-lg shadow-indigo-500/25"
             >
               {loading ? 'Creating account...' : 'Create Account'}
             </button>
@@ -140,7 +140,7 @@ export default function SignupPage() {
 
           <p className="text-center text-sm text-gray-600 mt-5">
             Already have an account?{' '}
-            <Link href="/login" className="text-amber-400 font-medium hover:text-amber-300">
+          <Link href="/login" className="text-indigo-300 font-medium hover:text-indigo-200">
               Sign in
             </Link>
           </p>

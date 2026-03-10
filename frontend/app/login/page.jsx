@@ -36,7 +36,7 @@ export default function LoginPage() {
 
   return (
     <div className="min-h-screen flex items-center justify-center px-4 relative">
-      <div className="orb w-[400px] h-[400px] bg-amber-500/8 top-[-100px] right-[-100px]" />
+      <div className="orb w-[420px] h-[420px] bg-indigo-500/10 top-[-120px] right-[-140px]" />
 
       <motion.div
         initial={{ opacity: 0, y: 20 }}
@@ -44,7 +44,7 @@ export default function LoginPage() {
         className="w-full max-w-md"
       >
         <div className="text-center mb-8">
-          <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-amber-400 to-orange-500 flex items-center justify-center mx-auto mb-4 shadow-2xl shadow-amber-500/30">
+          <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-indigo-500 to-sky-500 flex items-center justify-center mx-auto mb-4 shadow-2xl shadow-indigo-500/30">
             <Scale className="w-7 h-7 text-white" />
           </div>
           <h1 className="text-2xl font-bold text-white">Welcome back</h1>
@@ -63,7 +63,7 @@ export default function LoginPage() {
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder="you@example.com"
                   required
-                  className="w-full pl-10 pr-4 py-3 bg-white/5 border border-white/10 rounded-xl text-sm text-white placeholder-gray-700 outline-none focus:border-amber-500/40 transition-colors"
+                  className="w-full pl-10 pr-4 py-3 bg-white/5 border border-white/10 rounded-xl text-sm text-white placeholder-gray-700 outline-none focus:border-indigo-500/40 transition-colors"
                 />
               </div>
             </div>
@@ -78,7 +78,7 @@ export default function LoginPage() {
                   onChange={(e) => setPassword(e.target.value)}
                   placeholder="Your password"
                   required
-                  className="w-full pl-10 pr-10 py-3 bg-white/5 border border-white/10 rounded-xl text-sm text-white placeholder-gray-700 outline-none focus:border-amber-500/40 transition-colors"
+                  className="w-full pl-10 pr-10 py-3 bg-white/5 border border-white/10 rounded-xl text-sm text-white placeholder-gray-700 outline-none focus:border-indigo-500/40 transition-colors"
                 />
                 <button
                   type="button"
@@ -99,7 +99,7 @@ export default function LoginPage() {
             <button
               type="submit"
               disabled={loading}
-              className="w-full py-3 rounded-xl font-semibold text-sm bg-gradient-to-r from-amber-500 to-orange-500 text-white hover:scale-[1.02] disabled:opacity-60 disabled:scale-100 transition-all shadow-lg shadow-amber-500/20"
+              className="w-full py-3 rounded-xl font-semibold text-sm bg-gradient-to-r from-indigo-500 to-sky-500 text-white hover:scale-[1.02] disabled:opacity-60 disabled:scale-100 transition-all shadow-lg shadow-indigo-500/25"
             >
               {loading ? 'Signing in...' : 'Sign In'}
             </button>
@@ -107,7 +107,7 @@ export default function LoginPage() {
 
           <p className="text-center text-sm text-gray-600 mt-5">
             Don&apos;t have an account?{' '}
-            <Link href="/signup" className="text-amber-400 font-medium hover:text-amber-300">
+            <Link href="/signup" className="text-indigo-300 font-medium hover:text-indigo-200">
               Sign up free
             </Link>
           </p>

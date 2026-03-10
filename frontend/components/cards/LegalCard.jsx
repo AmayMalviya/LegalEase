@@ -12,7 +12,7 @@ const SOURCE_COLORS = {
   'Motor Vehicles Act': 'from-blue-500/20 to-blue-600/10 border-blue-500/30 text-blue-400',
   'Drugs and Cosmetics Act': 'from-purple-500/20 to-purple-600/10 border-purple-500/30 text-purple-400',
   'Negotiable Instruments Act': 'from-cyan-500/20 to-cyan-600/10 border-cyan-500/30 text-cyan-400',
-  'Constitution of India': 'from-amber-500/20 to-amber-600/10 border-amber-500/30 text-amber-400',
+  'Constitution of India': 'from-indigo-500/20 to-indigo-600/10 border-indigo-500/30 text-indigo-300',
   default: 'from-gray-500/20 to-gray-600/10 border-gray-500/30 text-gray-400',
 };
 
@@ -57,7 +57,7 @@ export default function LegalCard({ doc, showSave = true }) {
           <button
             onClick={handleSave}
             disabled={saved || saving}
-            className="opacity-0 group-hover:opacity-100 transition-opacity text-gray-500 hover:text-amber-400 disabled:text-amber-400"
+            className="opacity-0 group-hover:opacity-100 transition-opacity text-gray-500 hover:text-indigo-300 disabled:text-indigo-300"
             title={saved ? 'Saved!' : 'Save this section'}
           >
             {saved ? <BookmarkCheck className="w-5 h-5" /> : <BookmarkPlus className="w-5 h-5" />}

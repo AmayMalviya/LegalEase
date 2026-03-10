@@ -52,7 +52,7 @@ export default function DashboardPage() {
           </div>
           <h2 className="text-xl font-semibold text-white mb-2">Sign in to view your dashboard</h2>
           <p className="text-gray-500 text-sm mb-6">Your query history and saved laws will appear here.</p>
-          <Link href="/login" className="px-6 py-2.5 rounded-xl bg-gradient-to-r from-amber-500 to-orange-500 text-white font-semibold text-sm hover:scale-105 transition-all">
+          <Link href="/login" className="px-6 py-2.5 rounded-xl bg-gradient-to-r from-indigo-500 to-sky-500 text-white font-semibold text-sm hover:scale-105 transition-all">
             Sign In
           </Link>
         </div>

@@ -32,7 +32,7 @@ function ChatMessage({ message, onExport, onRelatedClick }) {
         <div
           className={`rounded-2xl px-4 py-3 text-sm leading-relaxed ${
             isUser
-              ? 'bg-amber-500 text-white rounded-tr-sm'
+              ? 'bg-indigo-500 text-white rounded-tr-sm'
               : 'bg-white/5 border border-white/10 text-gray-200 rounded-tl-sm'
           }`}
         >
@@ -52,7 +52,7 @@ function ChatMessage({ message, onExport, onRelatedClick }) {
                 {message.sources.map((src) => (
                   <span
                     key={src.id}
-                    className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-amber-500/10 border border-amber-500/20 text-amber-400 text-xs font-medium"
+                    className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-indigo-500/10 border border-indigo-500/30 text-indigo-300 text-xs font-medium"
                   >
                     <Scale className="w-3 h-3" />
                     {src.source} §{src.section}
@@ -81,7 +81,7 @@ function ChatMessage({ message, onExport, onRelatedClick }) {
                       key={q}
                       type="button"
                       onClick={() => onRelatedClick?.(q)}
-                      className="inline-flex items-center gap-1 px-2 py-1 rounded-full bg-white/5 border border-white/10 text-[11px] text-gray-300 hover:bg-amber-500/15 hover:border-amber-500/40 hover:text-white transition-all"
+                      className="inline-flex items-center gap-1 px-2 py-1 rounded-full bg-white/5 border border-white/10 text-[11px] text-gray-300 hover:bg-indigo-500/15 hover:border-indigo-500/40 hover:text-white transition-all"
                     >
                       <Bot className="w-3 h-3" />
                       {q}
@@ -218,27 +218,30 @@ export default function AskPage() {
             setMessages((prev) => {
               const next = [...prev];
               const last = next[next.length - 1];
-              if (last && last.role === 'assistant') {
-                last.sources = event.sources || [];
-              }
+              if (!last || last.role !== 'assistant') return prev;
+              next[next.length - 1] = { ...last, sources: event.sources || [] };
               return next;
             });
           } else if (event.type === 'token') {
             setMessages((prev) => {
               const next = [...prev];
               const last = next[next.length - 1];
-              if (last && last.role === 'assistant') {
-                last.content = (last.content || '') + event.token;
-              }
+              if (!last || last.role !== 'assistant') return prev;
+              next[next.length - 1] = {
+                ...last,
+                content: (last.content || '') + (event.token || ''),
+              };
               return next;
             });
           } else if (event.type === 'related') {
             setMessages((prev) => {
               const next = [...prev];
               const last = next[next.length - 1];
-              if (last && last.role === 'assistant') {
-                last.relatedQuestions = event.relatedQuestions || [];
-              }
+              if (!last || last.role !== 'assistant') return prev;
+              next[next.length - 1] = {
+                ...last,
+                relatedQuestions: event.relatedQuestions || [],
+              };
               return next;
             });
           } else if (event.type === 'error') {

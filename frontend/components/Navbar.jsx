@@ -28,6 +28,16 @@ export default function Navbar() {
     return () => subscription.unsubscribe();
   }, []);
 
+  const isAdmin = (() => {
+    const raw = process.env.NEXT_PUBLIC_ADMIN_EMAILS || '';
+    const allowed = raw
+      .split(',')
+      .map((e) => e.trim().toLowerCase())
+      .filter(Boolean);
+    if (!allowed.length) return false;
+    return allowed.includes(String(user?.email || '').trim().toLowerCase());
+  })();
+
   const handleSignOut = async () => {
     const supabase = createClient();
     await supabase.auth.signOut();
@@ -51,7 +61,7 @@ export default function Navbar() {
 
           {/* Desktop Nav */}
           <div className="hidden md:flex items-center gap-1">
-            {navLinks.map(({ href, label }) => (
+            {[...navLinks, ...(isAdmin ? [{ href: '/admin/documents', label: 'Admin', icon: LayoutDashboard }] : [])].map(({ href, label }) => (
               <Link
                 key={href}
                 href={href}
@@ -101,7 +111,7 @@ export default function Navbar() {
       {menuOpen && (
         <div className="md:hidden bg-black/90 backdrop-blur-xl border-t border-white/10 px-4 pb-4">
           <div className="py-3 space-y-1">
-            {navLinks.map(({ href, label, icon: Icon }) => (
+            {[...navLinks, ...(isAdmin ? [{ href: '/admin/documents', label: 'Admin', icon: LayoutDashboard }] : [])].map(({ href, label, icon: Icon }) => (
               <Link
                 key={href}
                 href={href}
