@@ -82,15 +82,15 @@ export default function LibraryPage() {
 
           {/* Search */}
           <div className="mt-6 flex gap-3 max-w-2xl">
-            <div className="flex-1 relative">
-              <Search className="w-4 h-4 absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-600" />
-              <input
-                value={query}
-                onChange={(e) => setQuery(e.target.value)}
-                placeholder="Search by keyword, section number, or topic..."
-                className="w-full pl-10 pr-4 py-3 bg-white/5 border border-white/10 rounded-xl text-sm text-white placeholder-gray-600 outline-none focus:border-blue-500/40 transition-colors"
-              />
-            </div>
+              <div className="flex-1 relative">
+                <Search className="w-4 h-4 absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-600" />
+                <input
+                  value={query}
+                  onChange={(e) => setQuery(e.target.value)}
+                  placeholder="Search by keyword, section number, or topic..."
+                  className="w-full pl-10 pr-4 py-3 bg-white/5 border border-white/10 rounded-xl text-sm text-white placeholder-gray-600 outline-none focus:border-indigo-500/40 transition-colors"
+                />
+              </div>
           </div>
 
           {/* Source filters */}
@@ -101,7 +101,7 @@ export default function LibraryPage() {
                 onClick={() => setActiveSource(src)}
                 className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-all ${
                   activeSource === src
-                    ? 'bg-blue-500/20 border border-blue-500/40 text-blue-400'
+                    ? 'bg-indigo-500/20 border border-indigo-500/40 text-indigo-300'
                     : 'bg-white/5 border border-white/10 text-gray-500 hover:text-gray-300 hover:border-white/20'
                 }`}
               >

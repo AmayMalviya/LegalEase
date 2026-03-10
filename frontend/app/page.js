@@ -9,8 +9,8 @@ const features = [
     title: 'AI Legal Assistant',
     description: 'Ask any question about Indian law and get instant, accurate answers backed by real legal text.',
     href: '/ask',
-    color: 'from-amber-500 to-orange-500',
-    glow: 'shadow-amber-500/20',
+    color: 'from-indigo-500 to-sky-500',
+    glow: 'shadow-indigo-500/25',
   },
   {
     icon: BookOpen,
@@ -47,9 +47,9 @@ export default function LandingPage() {
   return (
     <div className="relative min-h-screen overflow-hidden">
       {/* Background orbs */}
-      <div className="orb w-[600px] h-[600px] bg-amber-500/8 top-[-200px] left-[-100px]" />
-      <div className="orb w-[400px] h-[400px] bg-orange-500/6 top-[200px] right-[-100px]" />
-      <div className="orb w-[300px] h-[300px] bg-blue-500/6 bottom-[100px] left-[200px]" />
+      <div className="orb w-[600px] h-[600px] bg-indigo-500/10 top-[-220px] left-[-120px]" />
+      <div className="orb w-[420px] h-[420px] bg-sky-500/10 top-[200px] right-[-140px]" />
+      <div className="orb w-[320px] h-[320px] bg-emerald-500/8 bottom-[80px] left-[220px]" />
 
       {/* Hero */}
       <section className="relative max-w-7xl mx-auto px-4 sm:px-6 pt-20 pb-24 text-center">
@@ -58,7 +58,7 @@ export default function LandingPage() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
         >
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-amber-500/10 border border-amber-500/20 text-amber-400 text-sm font-medium mb-8">
+          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-indigo-500/10 border border-indigo-500/30 text-indigo-300 text-sm font-medium mb-8">
             <Zap className="w-3.5 h-3.5" />
             Powered by Llama 3 + RAG — Grounded in Real Indian Law
           </div>
@@ -77,7 +77,7 @@ export default function LandingPage() {
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link
               href="/ask"
-              className="group inline-flex items-center gap-2 px-8 py-4 rounded-2xl font-semibold text-base bg-gradient-to-r from-amber-500 to-orange-500 text-white shadow-xl shadow-amber-500/25 hover:shadow-amber-500/40 hover:scale-105 transition-all duration-200"
+              className="group inline-flex items-center gap-2 px-8 py-4 rounded-2xl font-semibold text-base bg-gradient-to-r from-indigo-500 to-sky-500 text-white shadow-xl shadow-indigo-500/25 hover:shadow-indigo-500/40 hover:scale-105 transition-all duration-200"
             >
               Ask a Legal Question
               <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
@@ -100,7 +100,7 @@ export default function LandingPage() {
         >
           {stats.map((stat) => (
             <div key={stat.label} className="bg-white/5 border border-white/10 rounded-2xl px-4 py-5">
-              <p className="text-3xl font-bold text-amber-400">{stat.value}</p>
+              <p className="text-3xl font-bold text-indigo-300">{stat.value}</p>
               <p className="text-sm text-gray-500 mt-1">{stat.label}</p>
             </div>
           ))}
@@ -137,7 +137,7 @@ export default function LandingPage() {
                   </div>
                   <h3 className="text-xl font-semibold text-white mb-3">{f.title}</h3>
                   <p className="text-gray-400 text-sm leading-relaxed mb-4">{f.description}</p>
-                  <span className="inline-flex items-center gap-1.5 text-sm font-medium text-amber-400 group-hover:gap-2.5 transition-all">
+                  <span className="inline-flex items-center gap-1.5 text-sm font-medium text-indigo-300 group-hover:gap-2.5 transition-all">
                     Explore <ArrowRight className="w-3.5 h-3.5" />
                   </span>
                 </div>
@@ -151,23 +151,23 @@ export default function LandingPage() {
       <section className="border-y border-white/5 py-8 overflow-hidden mb-20">
         <div className="flex gap-6 animate-[scroll_20s_linear_infinite] whitespace-nowrap">
           {[...acts, ...acts].map((act, i) => (
-            <span
-              key={i}
-              className="inline-flex items-center gap-2 px-5 py-2 rounded-full bg-white/5 border border-white/10 text-gray-400 text-sm font-medium flex-shrink-0"
-            >
-              <Scale className="w-3.5 h-3.5 text-amber-500" />
-              {act}
-            </span>
+              <span
+                key={i}
+                className="inline-flex items-center gap-2 px-5 py-2 rounded-full bg-white/5 border border-white/10 text-gray-400 text-sm font-medium flex-shrink-0"
+              >
+                <Scale className="w-3.5 h-3.5 text-indigo-400" />
+                {act}
+              </span>
           ))}
         </div>
       </section>
 
       {/* CTA */}
       <section className="max-w-4xl mx-auto px-4 sm:px-6 pb-24 text-center">
-        <div className="bg-gradient-to-br from-amber-500/10 to-orange-500/5 border border-amber-500/20 rounded-3xl p-12">
+        <div className="bg-gradient-to-br from-indigo-500/10 to-sky-500/5 border border-indigo-500/25 rounded-3xl p-12">
           <div className="inline-flex items-center gap-2 mb-6">
-            <Shield className="w-5 h-5 text-amber-400" />
-            <span className="text-amber-400 text-sm font-semibold">Free. Always.</span>
+            <Shield className="w-5 h-5 text-indigo-300" />
+            <span className="text-indigo-200 text-sm font-semibold">Free. Always.</span>
           </div>
           <h2 className="text-4xl font-bold text-white mb-4">
             Start Exploring Indian Law Today
@@ -177,7 +177,7 @@ export default function LandingPage() {
           </p>
           <Link
             href="/ask"
-            className="inline-flex items-center gap-2 px-8 py-4 rounded-2xl font-semibold text-base bg-gradient-to-r from-amber-500 to-orange-500 text-white shadow-xl shadow-amber-500/25 hover:shadow-amber-500/40 hover:scale-105 transition-all duration-200"
+            className="inline-flex items-center gap-2 px-8 py-4 rounded-2xl font-semibold text-base bg-gradient-to-r from-indigo-500 to-sky-500 text-white shadow-xl shadow-indigo-500/25 hover:shadow-indigo-500/40 hover:scale-105 transition-all duration-200"
           >
             Ask Your First Question <ArrowRight className="w-4 h-4" />
           </Link>

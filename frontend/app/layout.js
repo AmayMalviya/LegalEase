@@ -17,7 +17,7 @@ export default function RootLayout({ children }) {
           rel="stylesheet"
         />
       </head>
-      <body className="bg-[#0a0a0f] text-white font-sans antialiased">
+      <body className="bg-slate-950 text-white font-sans antialiased">
         <Navbar />
         <main className="pt-16">{children}</main>
       </body>

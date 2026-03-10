@@ -1,4 +1,5 @@
 import { createAdminClient } from './supabase/server.js';
+import { generateEmbedding } from './embeddings.js';
 
 /**
  * Searches for the most semantically similar legal documents.
@@ -32,28 +33,64 @@ export async function searchSimilarDocs(embedding, topK = 5) {
 export async function searchLegalLibrary(query, source = null, page = 1, pageSize = 20) {
   const supabase = await createAdminClient();
 
-  let q = supabase
-    .from('legal_documents')
-    .select('id, source, section, title, content', { count: 'exact' });
+  const trimmedQuery = (query || '').trim();
 
-  if (query && query.trim()) {
-    q = q.or(`title.ilike.%${query}%,content.ilike.%${query}%`);
+  // When there is no search query, fall back to simple paginated browsing
+  // so users can scroll through the corpus by section.
+  if (!trimmedQuery) {
+    let q = supabase
+      .from('legal_documents')
+      .select('id, source, section, title, content', { count: 'exact' });
+
+    if (source) {
+      q = q.eq('source', source);
+    }
+
+    const from = (page - 1) * pageSize;
+    const to = from + pageSize - 1;
+
+    const { data, count, error } = await q
+      .order('section')
+      .range(from, to);
+
+    if (error) throw new Error(`Library search failed: ${error.message}`);
+
+    return { data: data || [], total: count || 0, page, pageSize };
   }
 
-  if (source) {
-    q = q.eq('source', source);
+  // For keyword queries, use semantic vector search instead of ILIKE.
+  let embedding;
+  try {
+    embedding = await generateEmbedding(trimmedQuery);
+  } catch (error) {
+    throw new Error(`Failed to embed query: ${error.message}`);
   }
 
-  const from = (page - 1) * pageSize;
-  const to = from + pageSize - 1;
+  const matchCount = Math.min(pageSize * page, 200);
 
-  const { data, count, error } = await q
-    .order('section')
-    .range(from, to);
+  const { data, error } = await supabase.rpc('match_documents', {
+    query_embedding: embedding,
+    match_count: matchCount,
+  });
 
   if (error) throw new Error(`Library search failed: ${error.message}`);
 
-  return { data: data || [], total: count || 0, page, pageSize };
+  let results = data || [];
+
+  if (source) {
+    results = results.filter((doc) => doc.source === source);
+  }
+
+  const total = results.length;
+  const start = (page - 1) * pageSize;
+  const end = start + pageSize;
+
+  return {
+    data: results.slice(start, end),
+    total,
+    page,
+    pageSize,
+  };
 }
 
 /**

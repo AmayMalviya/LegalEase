@@ -41,11 +41,11 @@ export default function Navbar() {
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
           <Link href="/" className="flex items-center gap-2.5 group">
-            <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-amber-400 to-orange-500 flex items-center justify-center shadow-lg shadow-amber-500/20 group-hover:shadow-amber-500/40 transition-all duration-300">
+            <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-indigo-500 to-sky-500 flex items-center justify-center shadow-lg shadow-indigo-500/30 group-hover:shadow-indigo-500/50 transition-all duration-300">
               <Scale className="w-5 h-5 text-white" />
             </div>
             <span className="font-bold text-xl text-white tracking-tight">
-              Legal<span className="text-amber-400">Ease</span>
+              Legal<span className="text-indigo-300">Ease</span>
             </span>
           </Link>
 
@@ -57,7 +57,7 @@ export default function Navbar() {
                 href={href}
                 className={`px-3.5 py-1.5 rounded-lg text-sm font-medium transition-all duration-200 ${
                   pathname === href
-                    ? 'bg-amber-500/15 text-amber-400'
+                    ? 'bg-indigo-500/15 text-indigo-300'
                     : 'text-gray-400 hover:text-white hover:bg-white/5'
                 }`}
               >
@@ -80,7 +80,7 @@ export default function Navbar() {
                 <Link href="/login" className="px-4 py-1.5 text-sm font-medium text-gray-400 hover:text-white transition-colors">
                   Sign In
                 </Link>
-                <Link href="/signup" className="px-4 py-2 rounded-xl text-sm font-semibold bg-gradient-to-r from-amber-500 to-orange-500 text-white shadow-lg shadow-amber-500/20 hover:shadow-amber-500/40 hover:scale-105 transition-all duration-200">
+                <Link href="/signup" className="px-4 py-2 rounded-xl text-sm font-semibold bg-gradient-to-r from-indigo-500 to-sky-500 text-white shadow-lg shadow-indigo-500/25 hover:shadow-indigo-500/40 hover:scale-105 transition-all duration-200">
                   Get Started
                 </Link>
               </>
@@ -107,7 +107,7 @@ export default function Navbar() {
                 href={href}
                 onClick={() => setMenuOpen(false)}
                 className={`flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-all ${
-                  pathname === href ? 'bg-amber-500/15 text-amber-400' : 'text-gray-300 hover:bg-white/5'
+                  pathname === href ? 'bg-indigo-500/15 text-indigo-300' : 'text-gray-300 hover:bg-white/5'
                 }`}
               >
                 <Icon className="w-4 h-4" /> {label}
@@ -125,7 +125,7 @@ export default function Navbar() {
                 <Link
                   href="/login"
                   onClick={() => setMenuOpen(false)}
-                  className="flex items-center gap-2 px-3 py-2.5 text-sm text-amber-400"
+                  className="flex items-center gap-2 px-3 py-2.5 text-sm text-indigo-300"
                 >
                   <LogIn className="w-4 h-4" /> Sign In
                 </Link>
