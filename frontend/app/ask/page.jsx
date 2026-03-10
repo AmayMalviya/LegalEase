@@ -155,7 +155,8 @@ export default function AskPage() {
               sources: item.sources || [],
             });
           }
-          setMessages(historyMessages);
+          // Don’t clobber in-flight messages (e.g. auto-submitted /ask?q=...)
+          setMessages((prev) => (prev && prev.length > 0 ? prev : historyMessages));
         }
       } catch (err) {
         console.error('Error loading history for /ask:', err);
