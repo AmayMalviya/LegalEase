@@ -90,7 +90,7 @@ If port 3000 is busy, Next will run on 3001 (check the terminal output).
 
 - **Name**: Amay Malviya  
 - **Email**: `amaymalviya2@gmail.com`  
-- **LinkedIn**: [linkedin.com/in/Amay Malviya](https://linkedin.com/in/Amay%20Malviya)  
+- **LinkedIn**: [linkedin.com/in/amay-malviya-837061256](https://www.linkedin.com/in/amay-malviya-837061256)  
 - **GitHub**: [github.com/AmayMalviya](https://github.com/AmayMalviya)  
 - **Phone**: `+91 7440998199`  
 - **PayPal**: [paypal.me/Amay Malviya](https://paypal.me/Amay%20Malviya)
