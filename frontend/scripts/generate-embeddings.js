@@ -34,7 +34,7 @@ async function generateEmbedding(text, retries = 3) {
   for (let attempt = 1; attempt <= retries; attempt++) {
     try {
       const response = await fetch(
-        'https://api-inference.huggingface.co/pipeline/feature-extraction/sentence-transformers/all-MiniLM-L6-v2',
+        'https://router.huggingface.co/hf-inference/models/sentence-transformers/all-MiniLM-L6-v2/pipeline/feature-extraction',
         {
           method: 'POST',
           headers: {
@@ -42,8 +42,7 @@ async function generateEmbedding(text, retries = 3) {
             'Content-Type': 'application/json',
           },
           body: JSON.stringify({
-            inputs: text.slice(0, 512), // Token limit for the model
-            options: { wait_for_model: true },
+            inputs: text.slice(0, 512),
           }),
         }
       );

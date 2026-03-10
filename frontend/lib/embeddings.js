@@ -4,7 +4,7 @@
  */
 export async function generateEmbedding(text) {
   const response = await fetch(
-    'https://api-inference.huggingface.co/pipeline/feature-extraction/sentence-transformers/all-MiniLM-L6-v2',
+    'https://router.huggingface.co/hf-inference/models/sentence-transformers/all-MiniLM-L6-v2/pipeline/feature-extraction',
     {
       method: 'POST',
       headers: {
@@ -13,7 +13,6 @@ export async function generateEmbedding(text) {
       },
       body: JSON.stringify({
         inputs: text,
-        options: { wait_for_model: true },
       }),
     }
   );
