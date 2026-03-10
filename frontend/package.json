@@ -11,7 +11,6 @@
     "start": "next start"
   },
   "dependencies": {
-    "@prisma/client": "^5.19.1",
     "@radix-ui/react-avatar": "^1.1.1",
     "@radix-ui/react-checkbox": "^1.1.2",
     "@radix-ui/react-dropdown-menu": "^2.1.1",
@@ -54,7 +53,6 @@
     "eslint": "^8",
     "eslint-config-next": "14.2.9",
     "postcss": "^8",
-    "prisma": "^5.19.1",
     "tailwindcss": "^3.4.1",
     "ts-node": "^10.9.2"
   }
