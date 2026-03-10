@@ -3,6 +3,7 @@ import { useState, useEffect, useCallback } from 'react';
 import { motion } from 'framer-motion';
 import { Search, Filter, BookOpen, ChevronLeft, ChevronRight } from 'lucide-react';
 import LegalCard from '@/components/cards/LegalCard';
+import Link from 'next/link';
 
 const SOURCES = [
   'All Acts',
@@ -70,7 +71,7 @@ export default function LibraryPage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 py-12">
           <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}>
             <div className="flex items-center gap-3 mb-3">
-              <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-blue-500 to-cyan-500 flex items-center justify-center">
+              <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-indigo-500 to-sky-500 flex items-center justify-center">
                 <BookOpen className="w-5 h-5 text-white" />
               </div>
               <h1 className="text-3xl font-bold text-white">Legal Library</h1>
@@ -131,7 +132,13 @@ export default function LibraryPage() {
             </p>
             <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
               {results.map((doc) => (
-                <LegalCard key={doc.id} doc={doc} />
+                <Link
+                  key={doc.id}
+                  href={`/ask?q=${encodeURIComponent(`${doc.source} Section ${doc.section}: ${doc.title}`)}`}
+                  className="block"
+                >
+                  <LegalCard doc={doc} />
+                </Link>
               ))}
             </div>
 

@@ -3,6 +3,7 @@ import { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Send, Scale, User, Bot, AlertCircle, ExternalLink, BookmarkPlus } from 'lucide-react';
 import { createClient } from '@/lib/supabase/client';
+import { useRouter, useSearchParams } from 'next/navigation';
 
 const EXAMPLE_QUESTIONS = [
   'What is the punishment for theft under IPC?',
@@ -113,6 +114,9 @@ export default function AskPage() {
   const [error, setError] = useState(null);
   const bottomRef = useRef(null);
   const supabase = createClient();
+  const searchParams = useSearchParams();
+  const router = useRouter();
+  const autoAskedRef = useRef(false);
 
   useEffect(() => {
     bottomRef.current?.scrollIntoView({ behavior: 'smooth' });
@@ -257,6 +261,30 @@ export default function AskPage() {
       setLoading(false);
     }
   };
+
+  // Auto-send question passed via /ask?q=...
+  useEffect(() => {
+    const qParam = searchParams?.get('q');
+    const q = (qParam || '').trim();
+    if (!q || autoAskedRef.current) return;
+    autoAskedRef.current = true;
+
+    // Make sure input shows the query briefly (useful if user cancels midway)
+    setInput(q);
+
+    // Kick off streaming request
+    sendMessage(q);
+
+    // Clean URL so refresh doesn’t re-trigger
+    try {
+      const next = new URLSearchParams(searchParams?.toString() || '');
+      next.delete('q');
+      const qs = next.toString();
+      router.replace(qs ? `/ask?${qs}` : '/ask');
+    } catch {
+      // ignore
+    }
+  }, [searchParams, router]);
 
   const handleKeyDown = (e) => {
     if (e.key === 'Enter' && !e.shiftKey) {

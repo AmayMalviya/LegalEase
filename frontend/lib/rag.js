@@ -66,7 +66,10 @@ export async function searchLegalLibrary(query, source = null, page = 1, pageSiz
     throw new Error(`Failed to embed query: ${error.message}`);
   }
 
-  const matchCount = Math.min(pageSize * page, 200);
+  // Fetch a bounded pool and paginate locally.
+  // This avoids "total = pageSize" bugs and makes pagination stable.
+  const MAX_SEMANTIC_RESULTS = 200;
+  const matchCount = MAX_SEMANTIC_RESULTS;
 
   const { data, error } = await supabase.rpc('match_documents', {
     query_embedding: embedding,

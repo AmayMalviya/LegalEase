@@ -2,6 +2,7 @@
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { FileText, Search, Shield, Gavel, AlertCircle } from 'lucide-react';
+import Link from 'next/link';
 
 const FIR_SAMPLE_DATA = [
   { section: '302', offense: 'Murder', punishment: 'Death, or Life Imprisonment + Fine', cognizable: 'Cognizable', bailable: 'Non-Bailable', court: 'Court of Session' },
@@ -23,9 +24,14 @@ export default function CaseStudiesPage() {
   const [filter, setFilter] = useState('All');
 
   const filtered = FIR_SAMPLE_DATA.filter((item) => {
+    const q = (query || '').trim().toLowerCase();
+    const digits = q.match(/\d+/g)?.join('') || '';
     const matchesQuery =
-      item.offense.toLowerCase().includes(query.toLowerCase()) ||
-      item.section.includes(query);
+      !q ||
+      item.offense.toLowerCase().includes(q) ||
+      item.section.includes(digits) ||
+      `ipc ${item.section}`.includes(q) ||
+      `section ${item.section}`.includes(q);
     const matchesFilter =
       filter === 'All' ||
       (filter === 'Cognizable' && item.cognizable === 'Cognizable') ||
@@ -84,40 +90,44 @@ export default function CaseStudiesPage() {
               initial={{ opacity: 0, y: 8 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: i * 0.04 }}
-              className="bg-white/5 border border-white/10 rounded-2xl p-5 hover:bg-white/8 hover:border-white/15 transition-all"
             >
-              <div className="flex flex-wrap gap-4 items-start">
-                <div className="flex-shrink-0">
-                  <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-red-500/10 border border-red-500/20 text-red-400 text-sm font-bold font-mono">
-                    IPC §{item.section}
-                  </span>
-                </div>
-                <div className="flex-1 min-w-0">
-                  <h3 className="font-semibold text-white mb-2">{item.offense}</h3>
-                  <p className="text-gray-400 text-sm mb-3">
-                    <span className="text-gray-600">Punishment: </span>{item.punishment}
-                  </p>
-                  <div className="flex flex-wrap gap-2">
-                    <span className={`inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-medium ${
-                      item.cognizable === 'Cognizable'
-                        ? 'bg-orange-500/10 border border-orange-500/20 text-orange-400'
-                        : 'bg-gray-500/10 border border-gray-500/20 text-gray-400'
-                    }`}>
-                      <AlertCircle className="w-3 h-3" /> {item.cognizable}
-                    </span>
-                    <span className={`inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-medium ${
-                      item.bailable === 'Bailable'
-                        ? 'bg-green-500/10 border border-green-500/20 text-green-400'
-                        : 'bg-red-500/10 border border-red-500/20 text-red-400'
-                    }`}>
-                      <Shield className="w-3 h-3" /> {item.bailable}
-                    </span>
-                    <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-medium bg-blue-500/10 border border-blue-500/20 text-blue-400">
-                      <Gavel className="w-3 h-3" /> {item.court}
+              <Link
+                href={`/ask?q=${encodeURIComponent(`IPC Section ${item.section}: ${item.offense}`)}`}
+                className="block bg-white/5 border border-white/10 rounded-2xl p-5 hover:bg-white/8 hover:border-white/15 transition-all"
+              >
+                <div className="flex flex-wrap gap-4 items-start">
+                  <div className="flex-shrink-0">
+                    <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-red-500/10 border border-red-500/20 text-red-400 text-sm font-bold font-mono">
+                      IPC §{item.section}
                     </span>
                   </div>
+                  <div className="flex-1 min-w-0">
+                    <h3 className="font-semibold text-white mb-2">{item.offense}</h3>
+                    <p className="text-gray-400 text-sm mb-3">
+                      <span className="text-gray-600">Punishment: </span>{item.punishment}
+                    </p>
+                    <div className="flex flex-wrap gap-2">
+                      <span className={`inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-medium ${
+                        item.cognizable === 'Cognizable'
+                          ? 'bg-orange-500/10 border border-orange-500/20 text-orange-400'
+                          : 'bg-gray-500/10 border border-gray-500/20 text-gray-400'
+                      }`}>
+                        <AlertCircle className="w-3 h-3" /> {item.cognizable}
+                      </span>
+                      <span className={`inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-medium ${
+                        item.bailable === 'Bailable'
+                          ? 'bg-green-500/10 border border-green-500/20 text-green-400'
+                          : 'bg-red-500/10 border border-red-500/20 text-red-400'
+                      }`}>
+                        <Shield className="w-3 h-3" /> {item.bailable}
+                      </span>
+                      <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-medium bg-blue-500/10 border border-blue-500/20 text-blue-400">
+                        <Gavel className="w-3 h-3" /> {item.court}
+                      </span>
+                    </div>
+                  </div>
                 </div>
-              </div>
+              </Link>
             </motion.div>
           ))}
         </div>

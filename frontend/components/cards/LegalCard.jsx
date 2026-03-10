@@ -43,7 +43,7 @@ export default function LegalCard({ doc, showSave = true }) {
   };
 
   return (
-    <div className={`group relative bg-gradient-to-br ${colorClass} border rounded-2xl p-5 hover:scale-[1.01] transition-all duration-300 hover:shadow-lg`}>
+    <div className={`group relative bg-gradient-to-br ${colorClass} border rounded-2xl p-5 hover:scale-[1.01] transition-all duration-300 hover:shadow-lg cursor-pointer`}>
       {/* Source badge */}
       <div className="flex items-start justify-between gap-3 mb-3">
         <div>
@@ -55,7 +55,11 @@ export default function LegalCard({ doc, showSave = true }) {
         </div>
         {showSave && (
           <button
-            onClick={handleSave}
+            onClick={(e) => {
+              e.preventDefault();
+              e.stopPropagation();
+              handleSave();
+            }}
             disabled={saved || saving}
             className="opacity-0 group-hover:opacity-100 transition-opacity text-gray-500 hover:text-indigo-300 disabled:text-indigo-300"
             title={saved ? 'Saved!' : 'Save this section'}
