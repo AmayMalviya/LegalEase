@@ -86,3 +86,13 @@ If port 3000 is busy, Next will run on 3001 (check the terminal output).
 - `/ask?q=...` auto-submits the query and starts streaming a response.
 - Library and blog cards link into `/ask` using that `q` parameter.
 
+## Project maintainer & contact
+
+- **Name**: Amay Malviya  
+- **Email**: `amaymalviya2@gmail.com`  
+- **LinkedIn**: [linkedin.com/in/Amay Malviya](https://linkedin.com/in/Amay%20Malviya)  
+- **GitHub**: [github.com/AmayMalviya](https://github.com/AmayMalviya)  
+- **Phone**: `+91 7440998199`  
+- **PayPal**: [paypal.me/Amay Malviya](https://paypal.me/Amay%20Malviya)
+
+
